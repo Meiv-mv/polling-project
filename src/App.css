@@ -10,7 +10,7 @@ body {
 
 .baseStyle {
     width: 100%;
-    height: 500px;
+    height: 93vh;
     background-color: rgb(25, 135, 84);
     color: white;
     padding: 0;
@@ -21,3 +21,8 @@ body {
     padding: 0;
     margin: 0;
 }
+
+nav a:hover {
+    cursor: pointer;
+}
+
