@@ -5,6 +5,7 @@ import Homepage from './components/homepage';
 import WebSocketSection from "./components/websocket";
 import LampSection from "./components/lamp-section";
 import { useSelector } from 'react-redux'
+import Chat from "./components/chat";
 
 function App() {
     const box = useSelector((state: any) => state.box.value)
@@ -27,6 +28,9 @@ function App() {
 
               {/* Websocket */}
               {box === 2 && <WebSocketSection/>}
+
+              {/* chat */}
+              {box === 3 && <Chat/>}
           </div>
       </main>
 

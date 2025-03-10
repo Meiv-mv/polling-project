@@ -24,6 +24,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className={box === 2 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(2))}>WebSocket</a>
                         </li>
+                        <li className="nav-item">
+                            <a className={box === 3 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(3))}>Chat</a>
+                        </li>
                     </ul>
                 </div>
                 <div>

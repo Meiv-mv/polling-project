@@ -55,8 +55,8 @@ const LampSection: React.FC = () => {
     // Effettua la GET ogni 1 secondo per aggiornare lo stato
     useEffect(() => {
         fetchRelayState(); // Prima richiesta immediata
-        const interval = setInterval(fetchRelayState, 10000000); // Aggiorna ogni 1 secondo
-        return () => clearInterval(interval); // Pulisce l'intervallo al termine
+       // const interval = setInterval(fetchRelayState, 10000000); // Aggiorna ogni 1 secondo
+        // return () => clearInterval(interval); // Pulisce l'intervallo al termine
     }, []);
 
     return (
