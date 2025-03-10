@@ -2,16 +2,20 @@ import { useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
 import { EChartsOption } from 'echarts-for-react';
 
-// const websocketUrl: string = 'ws://192.168.7.254/ws';
-// const ws = new WebSocket(websocketUrl);
-// ws.onopen = () => {
-//     console.log("WebSocket Opened");
-// }
-// ws.onmessage = (event) => {
-//     console.log(event.data)
-// }
+interface realtimeProps {
+    temp?: number,
+    hum?: number,
+    press?: number,
+    time?: string
+}
+interface objType {
+    temperature?: number;
+    humidity?: number;
+    pressure?: number;
+    time?: string;
+}
 
-function RealtimeBoard() {
+function RealtimeBoard({temp, hum, press, time}: realtimeProps) {
     return(
         <div className="row">
             <div className="12">
@@ -19,10 +23,10 @@ function RealtimeBoard() {
             </div>
             <div className="col-12" style={{marginTop: "20px"}}>
                 <div className="row">
-                    <p>Temperatura = {}</p>
-                    <p>Umidità = {}</p>
-                    <p>Pressione = {}</p>
-                    <p>Orario = {}</p>
+                    <p>Temperatura = {temp}°C</p>
+                    <p>Umidità = {hum}%</p>
+                    <p>Pressione = {press} hPA</p>
+                    <p>Orario = {time}</p>
                 </div>
             </div>
         </div>
@@ -34,11 +38,12 @@ export default function WebSocketSection() {
     const [yTemperature, setYTemperature] = useState<Array<number>>([]);
     const [yHumidity, setYHumidity] = useState<Array<number>>([]);
     const [yPressure, setYPressure] = useState<Array<number>>([]);
+    const [realtime, setRealtime] = useState<objType>({});
     const temperatureOption: EChartsOption = {
         tooltip: {
-            trigger: 'axis', // Mostra il tooltip sull'asse X
+            trigger: 'axis',
             axisPointer: {
-                type: 'cross' // Mostra una linea incrociata su X e Y
+                type: 'cross'
             }
         },
         xAxis: {
@@ -58,6 +63,12 @@ export default function WebSocketSection() {
         ]
     };
     const humidityOption: EChartsOption = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
         xAxis: {
             type: 'category',
             boundaryGap: false,
@@ -75,6 +86,12 @@ export default function WebSocketSection() {
         ]
     };
     const pressureOption: EChartsOption = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
         xAxis: {
             type: 'category',
             boundaryGap: false,
@@ -92,34 +109,32 @@ export default function WebSocketSection() {
         ]
     };
 
-    interface fakeObjType {
-        temperature: string;
-        humidity: string;
-        pressure: string;
-        time: string;
-    }
-
-    function fakeObj() {
-        const obj: fakeObjType = {
-            temperature: "20",
-            humidity: "35",
-            pressure: "1020.50",
-            time: "10:00:00",
+    useEffect(() => {
+        const websocketUrl: string = 'ws://192.168.7.254/ws';
+        const ws = new WebSocket(websocketUrl);
+        ws.onopen = () => {
+            console.log("WebSocket Opened");
         }
+        ws.onmessage = (event) => {
+            let obj: objType = JSON.parse(event.data);
+            let date: Date = new Date();
+            obj.time = date.toLocaleTimeString("it-IT");
 
 
-        setXData(prevData => [...prevData, obj.time]);
-        setYTemperature(prevData => [...prevData, JSON.parse(obj.temperature)]);
-        setYHumidity(prevData => [...prevData, JSON.parse(obj.humidity)]);
-        setYPressure(prevData => [...prevData, JSON.parse(obj.pressure)]);
-    }
+            setRealtime(obj);
+            setXData(prevData => [...prevData, obj.time as string]);
+            setYTemperature(prevData => [...prevData, obj.temperature as number]);
+            setYHumidity(prevData => [...prevData, obj.humidity as number]);
+            setYPressure(prevData => [...prevData, obj.pressure as number]);
+        }
+    }, []);
 
     return (
         <div className="col-12">
             <div className="row baseStyle" style={{height:'100%'}}>
                 <div className="col-12 col-lg-6">
-                    <RealtimeBoard />
-                    <button onClick={fakeObj}>Test</button>
+                    <RealtimeBoard temp={realtime.temperature} hum={realtime.humidity} press={realtime.pressure} time={realtime.time} />
+                    {/*temp={} hum={} press={} time={}*/}
                 </div>
                 <div className="col-12 col-lg-6 chart-div">
                     <h2>Temperatura(°C)</h2>
