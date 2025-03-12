@@ -23,9 +23,6 @@ function App() {
               {/*/!* Homepage *!/*/}
               {/*{box === 0 && <Homepage/>}*/}
 
-              {/* Lamp */}
-              {box === 1 && <LampSection/>}
-
               {/* Websocket */}
               {box === 0 && <WebSocketSection/>}
 

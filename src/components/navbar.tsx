@@ -21,9 +21,6 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className={box === 1 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(1))}>Lamp</a>
-                        </li>
-                        <li className="nav-item">
                             <a className={box === 0 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(0))}>WebSocket</a>
                         </li>
                         <li className="nav-item">
