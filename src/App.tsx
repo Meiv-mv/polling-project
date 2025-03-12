@@ -23,14 +23,11 @@ function App() {
               {/* Homepage */}
               {box === 0 && <Homepage/>}
 
-              {/* Lamp */}
-              {box === 1 && <LampSection/>}
-
               {/* Websocket */}
-              {box === 2 && <WebSocketSection/>}
+              {box === 1 && <WebSocketSection/>}
 
               {/* Chat */}
-              {box === 3 && <Chat />}
+              {box === 2 && <Chat />}
           </div>
       </main>
 
