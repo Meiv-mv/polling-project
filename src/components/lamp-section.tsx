@@ -48,9 +48,11 @@ const LampSection: React.FC = () => {
             if (response.data && response.data.state) {
                 setRelayState(response.data.state);  // Imposta solo lo stato
             } else {
+
                 setError("Stato non trovato nella risposta");
             }
         } catch (err) {
+
             setError("Errore nel recupero dello stato");
             console.error("Errore GET:", err);
         }
@@ -74,21 +76,33 @@ const LampSection: React.FC = () => {
             console.log("Risposta POST relay:", response.data);
             setRelayState(newState);
         } catch (err) {
-            setError("Errore nel cambio stato");
+            setTimeout(()=> {}, 1000);
+            setError("il relay risulta offline");
             console.error("Errore POST:", err);
         } finally {
             setLoading(false);
         }
     };
 
+
+    useEffect(() => {
+        if(error){
+            alert(error);
+        }
+    }, [error]);
+
     return (
-        <div style={{ textAlign: "center", padding: "20px" }}>
-            <h2>Stato Lampada: {relayState.toUpperCase()}</h2>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <button onClick={toggleRelay} disabled={loading} style={{ fontSize: "18px", padding: "10px 20px" }}>
-                {loading ? "Attendere..." : relayState === "off" ? "Accendi" : "Spegni"}
-            </button>
-        </div>
+
+                <button onClick={toggleRelay} disabled={loading} style={{ fontSize: "16px", color:"white",background:"none", border:"none"}}>
+                    <img
+                        src={relayState === "off" ? "/images/lampoff.webp" : "/images/lampon.png"}
+                        alt={relayState === "off" ? "Lampada Spenta" : "Lampada Accesa"}
+                        style={{ width: "30px", height: "30px" }}
+                    />
+                    {loading ? "Attendere..." : relayState === "off" ? "Accendi" : "Spegni"}
+                </button>
+
+
     );
 };
 

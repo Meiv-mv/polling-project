@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {changeBox} from "../redux/reducer/boxReducer";
+import LampSection from "./lamp-section";
+
 
 export default function Navbar() {
     const box = useSelector((state: any) => state.box.value)
@@ -8,7 +10,7 @@ export default function Navbar() {
 
 
     return (
-        <nav className="navbar navbar-dark navbar-expand-sm fixed-top bg-body-tertiary" data-bs-theme="dark">
+        <nav className="navbar navbar-dark navbar-expand-sm fixed-top bg-body-tertiary" style={{background: "linear-gradient(100deg,#2C3239,#2C3239",}}>
             <div className="container-fluid">
                 <a className="navbar-brand" onClick={() => dispatch(changeBox(0))}>Home</a>
                 <button className="navbar-toggler text-info" type="button" data-bs-toggle="collapse"
@@ -28,6 +30,9 @@ export default function Navbar() {
                             <a className={box === 3 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(3))}>Chat</a>
                         </li>
                     </ul>
+                </div>
+                <div>
+                    <LampSection/>
                 </div>
             </div>
         </nav>
