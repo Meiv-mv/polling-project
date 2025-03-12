@@ -17,7 +17,7 @@ const LampSection: React.FC = () => {
     const topic :string= process.env.REACT_APP_TOPIC_LAMP as string;
 
     function sendmsg(){
-        client.publish(topic,"carmine collegato")
+        client.publish(topic,"marco collegato")
     }
 
     useEffect(() => {
@@ -80,13 +80,6 @@ const LampSection: React.FC = () => {
             setLoading(false);
         }
     };
-
-    // Effettua la GET ogni 1 secondo per aggiornare lo stato
-    useEffect(() => {
-         // Prima richiesta immediata
-        // const interval = setInterval(fetchRelayState, 1000); // Aggiorna ogni 1 secondo
-        // return () => clearInterval(interval); // Pulisce l'intervallo al termine
-    }, []);
 
     return (
         <div style={{ textAlign: "center", padding: "20px" }}>

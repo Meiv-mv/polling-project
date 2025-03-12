@@ -18,16 +18,16 @@ function App() {
 
 
       {/* Main */}
-      <main className="container-fluid text-center" style={{marginTop: "56px"}} >
+      <main className="container-fluid text-center justify-content-center" style={{marginTop: "56px"}} >
           <div className="row">
-              {/* Homepage */}
-              {box === 0 && <Homepage/>}
+              {/*/!* Homepage *!/*/}
+              {/*{box === 0 && <Homepage/>}*/}
 
               {/* Lamp */}
               {box === 1 && <LampSection/>}
 
               {/* Websocket */}
-              {box === 2 && <WebSocketSection/>}
+              {box === 0 && <WebSocketSection/>}
 
               {/* Chat */}
               {box === 3 && <Chat />}

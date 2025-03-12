@@ -23,10 +23,18 @@ function RealtimeBoard({temp, hum, press, time}: realtimeProps) {
             </div>
             <div className="col-12" style={{marginTop: "20px"}}>
                 <div className="row">
-                    <p>Temperatura = {temp}°C</p>
-                    <p>Umidità = {hum}%</p>
-                    <p>Pressione = {press} hPA</p>
-                    <p>Orario = {time}</p>
+                    <div className="col-12 col-md-6 col-lg-3 value">
+                        <p>Temperatura = {temp}°C</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-3 value">
+                        <p>Umidità = {hum}%</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-3 value">
+                        <p>Pressione = {press} hPA</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-3 value">
+                        <p>Orario = {time}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,10 +116,19 @@ export default function WebSocketSection() {
             }
         ]
     };
+    const websocketUrl: string = 'ws://192.168.7.254/ws';
+    const [reconnect, setReconnect] = useState<boolean>(false);
+
+
+    function connect() {
+        const ws = new WebSocket(websocketUrl);
+
+        return ws;
+    }
 
     useEffect(() => {
-        const websocketUrl: string = 'ws://192.168.7.254/ws';
-        const ws = new WebSocket(websocketUrl);
+        const ws = connect();
+
         ws.onopen = () => {
             console.log("WebSocket Opened");
         }
@@ -127,26 +144,35 @@ export default function WebSocketSection() {
             setYHumidity(prevData => [...prevData, obj.humidity as number]);
             setYPressure(prevData => [...prevData, obj.pressure as number]);
         }
-    }, []);
+        ws.onerror = (err) => {
+            console.log("Errore di connessione alla WS, nuovo tentativo di connessione in corso...");
+            ws.close();
+        }
+        ws.onclose = () => {
+            setTimeout(function() {
+                setReconnect(!reconnect);
+            }, 2000);
+        }
+    }, [reconnect]);
 
     return (
         <div className="col-12">
             <div className="row baseStyle" style={{height:'100%'}}>
-                <div className="col-12 col-lg-6">
+                <div className="col-12">
                     <RealtimeBoard temp={realtime.temperature} hum={realtime.humidity} press={realtime.pressure} time={realtime.time} />
                     {/*temp={} hum={} press={} time={}*/}
                 </div>
-                <div className="col-12 col-lg-6 chart-div">
+                <div className="col-12 col-lg-4 chart-div">
                     <h2>Temperatura(°C)</h2>
-                    <ReactECharts option={temperatureOption} style={{padding: "5px"}} theme="dark" />
+                    <ReactECharts option={temperatureOption} style={{padding: "5px"}} />
                 </div>
-                <div className="col-12 col-lg-6 chart-div">
+                <div className="col-12 col-lg-4 chart-div">
                     <h2>Umidità(%)</h2>
-                    <ReactECharts option={humidityOption} style={{padding: "5px"}} theme="dark" />
+                    <ReactECharts option={humidityOption} style={{padding: "5px"}} />
                 </div>
-                <div className="col-12 col-lg-6 chart-div">
+                <div className="col-12 col-lg-4 chart-div">
                     <h2>Pressione(hPA)</h2>
-                    <ReactECharts option={pressureOption} style={{padding: "5px"}} theme="dark" />
+                    <ReactECharts option={pressureOption} style={{padding: "5px"}} />
                 </div>
             </div>
         </div>

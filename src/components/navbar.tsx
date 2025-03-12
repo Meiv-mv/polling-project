@@ -22,16 +22,12 @@ export default function Navbar() {
                             <a className={box === 1 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(1))}>Lamp</a>
                         </li>
                         <li className="nav-item">
-                            <a className={box === 2 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(2))}>WebSocket</a>
+                            <a className={box === 0 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(0))}>WebSocket</a>
                         </li>
                         <li className="nav-item">
                             <a className={box === 3 ? "nav-link active" : "nav-link"} onClick={() => dispatch(changeBox(3))}>Chat</a>
                         </li>
                     </ul>
-                </div>
-                <div>
-                    <button  className="btn btn-success">Registrati</button>
-                    <button  className="btn btn-secondary" style={{marginLeft: "5px"}}>Login</button>
                 </div>
             </div>
         </nav>
