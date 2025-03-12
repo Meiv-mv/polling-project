@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import mqtt from "mqtt"
+
 
 const RELAY_URL = "http://192.168.7.200/relay"; // URL del relay
 
@@ -8,12 +10,39 @@ const LampSection: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    const client = mqtt.connect(process.env.REACT_APP_BROKER_URL as string, {
+        username: process.env.REACT_APP_MQTT_USER,
+        password: process.env.REACT_APP_MQTT_PASSWORD,
+    })
+    const topic :string= process.env.REACT_APP_TOPIC_LAMP as string;
+
+    function sendmsg(){
+        client.publish(topic,"carmine collegato")
+    }
+
+    useEffect(() => {
+        client.on("connect",() => {
+            client.subscribe(topic);
+        })
+        fetchRelayState();
+        client.on("message", (topic, payload) => {
+        let data= payload.toString();
+        console.log(data);
+        fetchRelayState();
+
+        });
+
+
+    }, []);
+
+
     // Funzione per ottenere solo lo stato attuale del relay
     const fetchRelayState = async () => {
         try {
             const response = await axios.get(RELAY_URL, {
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }, params: { id: 1 }, // Parametro per identificare il relay
             });
+
 
             // Verifica se la risposta contiene il campo "state"
             if (response.data && response.data.state) {
@@ -32,7 +61,7 @@ const LampSection: React.FC = () => {
         const newState = relayState === "off" ? "on" : "off";
         setLoading(true);
         setError(null);
-
+        sendmsg();
         try {
             const response = await axios.post(
                 RELAY_URL,
@@ -54,8 +83,8 @@ const LampSection: React.FC = () => {
 
     // Effettua la GET ogni 1 secondo per aggiornare lo stato
     useEffect(() => {
-        fetchRelayState(); // Prima richiesta immediata
-        // const interval = setInterval(fetchRelayState, 10000000); // Aggiorna ogni 1 secondo
+         // Prima richiesta immediata
+        // const interval = setInterval(fetchRelayState, 1000); // Aggiorna ogni 1 secondo
         // return () => clearInterval(interval); // Pulisce l'intervallo al termine
     }, []);
 
