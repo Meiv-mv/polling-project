@@ -17,22 +17,22 @@ interface objType {
 
 function RealtimeBoard({temp, hum, press, time}: realtimeProps) {
     return(
-        <div className="row">
-            <div className="12">
+        <div className="row" style={{width:"100%"}}>
+            <div className="col-12">
                 <h2>Ultimo dato aggiunto</h2>
             </div>
-            <div className="col-12" style={{marginTop: "20px"}}>
-                <div className="row">
-                    <div className="col-12 col-md-6 col-lg-3 value">
+            <div className="col-12">
+                <div className="row gy-3 gy-md-4 justify-content-around align-items-center">
+                    <div className="col-11 col-md-5 col-lg-2 value">
                         <p>Temperatura = {temp}°C</p>
                     </div>
-                    <div className="col-12 col-md-6 col-lg-3 value">
+                    <div className="col-11 col-md-5 col-lg-2 value">
                         <p>Umidità = {hum}%</p>
                     </div>
-                    <div className="col-12 col-md-6 col-lg-3 value">
+                    <div className="col-11 col-md-5 col-lg-2 value">
                         <p>Pressione = {press} hPA</p>
                     </div>
-                    <div className="col-12 col-md-6 col-lg-3 value">
+                    <div className="col-11 col-md-5 col-lg-2 value">
                         <p>Orario = {time}</p>
                     </div>
                 </div>
@@ -57,19 +57,45 @@ export default function WebSocketSection() {
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: xData
+            data: xData,
+            axisLine: { lineStyle: { color: "#6A528C" } },
+            axisLabel: { color: "#D6F1DC" }
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLine: { lineStyle: { color: "#6A528C" } },
+            axisLabel: { color: "#D6F1DC" },
+            splitLine: { lineStyle: { color: "#6A528C" } }
         },
         series: [
             {
                 data: yTemperature,
                 type: 'line',
-                areaStyle: {}
+                areaStyle: {
+                    color: {
+                        type: "linear",
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            { offset: 0, color: "#EBA062" },
+                            { offset: 1, color: "#D6F1DC" }
+                        ],
+                    }
+                },
+                lineStyle: {
+                    color: "#FF4B37",
+                    width: 3,
+                },
+                itemStyle: {
+                    color: "#A17DD4",
+                    borderColor: "#FF4B37",
+                    borderWidth: 2,
+                },
             }
         ]
-    };
+    }; // da testare con i nuovi colori fatti con chatgpt
     const humidityOption: EChartsOption = {
         tooltip: {
             trigger: 'axis',
@@ -160,7 +186,6 @@ export default function WebSocketSection() {
             <div className="row baseStyle" style={{height:'100%'}}>
                 <div className="col-12">
                     <RealtimeBoard temp={realtime.temperature} hum={realtime.humidity} press={realtime.pressure} time={realtime.time} />
-                    {/*temp={} hum={} press={} time={}*/}
                 </div>
                 <div className="col-12 col-lg-4 chart-div">
                     <h2>Temperatura(°C)</h2>
