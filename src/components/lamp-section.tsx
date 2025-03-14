@@ -21,7 +21,7 @@ const LampSection: React.FC = () => {
 
     //messaggio MQTT per avvisare della modifica
     function sendmsg() {
-        client.publish(topic, "Kiriodas collegato");
+        client.publish(topic, "stato luce aggiornato");
     }
 
     useEffect(() => {
