@@ -10,7 +10,7 @@ const LampSection: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false); // State loading
     const [error, setError] = useState<string | null>(null); // State erro
 
-    // Connessione al broker MQTT
+    // Connessione MQTT
     const client = mqtt.connect(process.env.REACT_APP_BROKER_URL as string, {
         username: process.env.REACT_APP_MQTT_USER,
         password: process.env.REACT_APP_MQTT_PASSWORD,
