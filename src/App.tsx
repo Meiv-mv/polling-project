@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './components/navbar';
 import Homepage from './components/homepage';
 import WebSocketSection from "./components/websocket";
-import LampSection from "./components/lamp-section";
 import { useSelector } from 'react-redux'
 import Chat from './components/chat';
 
@@ -21,13 +20,13 @@ function App() {
       <main className="container-fluid text-center justify-content-center" style={{marginTop: "56px"}} >
           <div className="row">
               {/*/!* Homepage *!/*/}
-              {/*{box === 0 && <Homepage/>}*/}
+              {box === 0 && <Homepage/>}
 
               {/* Websocket */}
-              {box === 0 && <WebSocketSection/>}
+              {box === 1 && <WebSocketSection/>}
 
               {/* Chat */}
-              {box === 3 && <Chat />}
+              {box === 2 && <Chat />}
           </div>
       </main>
 
