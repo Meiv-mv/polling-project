@@ -23,6 +23,7 @@ export default function Chat() {
     const topic: string = process.env.REACT_APP_TOPIC_CHAT as string
     const username: string = useSelector((state: any) => state.user.value);
     const dispatch = useDispatch()
+    const [reconnect, setReconnect] = useState<boolean>(false)
 
     // update username
     function updateUsername() {
@@ -68,12 +69,20 @@ export default function Chat() {
         }
     }, [chat]);
 
-    // connection and subscribing useEffect
+    // handle connection, reconnection, subscribing
     useEffect(() => {
 
         client.on("connect", () => {
             console.log("Connected");
             client.subscribe(topic);
+        })
+
+        client.on("error", (err) => {
+            console.log("Errore :" + err)
+        })
+
+        client.on("close", () => {
+            console.log("Client closed")
         })
 
         client.on("message", function (topic, payload){

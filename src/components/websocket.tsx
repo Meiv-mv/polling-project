@@ -59,12 +59,12 @@ export default function WebSocketSection() {
             boundaryGap: false,
             data: xData,
             axisLine: { lineStyle: { color: "#6A528C" } },
-            axisLabel: { color: "#D6F1DC" }
+            axisLabel: { color: "#6A528C" }
         },
         yAxis: {
             type: 'value',
             axisLine: { lineStyle: { color: "#6A528C" } },
-            axisLabel: { color: "#D6F1DC" },
+            axisLabel: { color: "#6A528C" },
             splitLine: { lineStyle: { color: "#6A528C" } }
         },
         series: [
@@ -106,16 +106,42 @@ export default function WebSocketSection() {
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: xData
+            data: xData,
+            axisLine: { lineStyle: { color: "#6A528C" } },
+            axisLabel: { color: "#6A528C" }
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLine: { lineStyle: { color: "#6A528C" } },
+            axisLabel: { color: "#6A528C" },
+            splitLine: { lineStyle: { color: "#6A528C" } }
         },
         series: [
             {
                 data: yHumidity,
                 type: 'line',
-                areaStyle: {}
+                areaStyle: {
+                    color: {
+                        type: "linear",
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            { offset: 0, color: "#EBA062" },
+                            { offset: 1, color: "#D6F1DC" }
+                        ],
+                    }
+                },
+                lineStyle: {
+                    color: "#FF4B37",
+                    width: 3,
+                },
+                itemStyle: {
+                    color: "#A17DD4",
+                    borderColor: "#FF4B37",
+                    borderWidth: 2,
+                }
             }
         ]
     };
@@ -129,16 +155,42 @@ export default function WebSocketSection() {
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: xData
+            data: xData,
+            axisLine: { lineStyle: { color: "#6A528C" } },
+            axisLabel: { color: "#6A528C" }
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLine: { lineStyle: { color: "#6A528C" } },
+            axisLabel: { color: "#6A528C" },
+            splitLine: { lineStyle: { color: "#6A528C" } }
         },
         series: [
             {
                 data: yPressure,
                 type: 'line',
-                areaStyle: {}
+                areaStyle: {
+                    color: {
+                        type: "linear",
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [
+                            { offset: 0, color: "#EBA062" },
+                            { offset: 1, color: "#D6F1DC" }
+                        ],
+                    }
+                },
+                lineStyle: {
+                    color: "#FF4B37",
+                    width: 3,
+                },
+                itemStyle: {
+                    color: "#A17DD4",
+                    borderColor: "#FF4B37",
+                    borderWidth: 2,
+                }
             }
         ]
     };
