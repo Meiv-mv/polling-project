@@ -10,6 +10,7 @@ const LampSection: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false); // State loading
     const [error, setError] = useState<string | null>(null); // State erro
 
+    const [isConnected, setIsConnected] = useState(false);
     // Connessione MQTT
     const client = mqtt.connect(process.env.REACT_APP_BROKER_URL as string, {
         username: process.env.REACT_APP_MQTT_USER,
@@ -24,14 +25,26 @@ const LampSection: React.FC = () => {
     }
 
     useEffect(() => {
-        try {
+
             client.on("connect", () => {
                 client.subscribe(topic);
+                console.log("connesso al broker")
             });
-        } catch (err){
-            setError("connessione mqtt non riuscita");
-            console.log(err);
-        }
+
+        client.on("reconnect", () => {
+            console.log("riconnessione broker...");
+        });
+
+        client.on("offline", () => {
+            console.log("MQTT client offline");
+            setIsConnected(false);
+        });
+
+        client.on("error", (err) => {
+            console.error("MQTT error: ", err);
+            client.end();
+        });
+
 
         fetchRelayState(); // Recupera lo stato iniziale del relay
 
@@ -59,7 +72,7 @@ const LampSection: React.FC = () => {
             }
         } catch (err) {
             setError("Errore nel recupero dello stato");
-            console.error("Errore GET:", err);
+            console.error("Errore GET:", error);
         }
     };
 

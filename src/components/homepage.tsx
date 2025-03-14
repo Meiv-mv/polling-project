@@ -3,7 +3,7 @@ import "../App.css"
 export default function Homepage() {
     return (
         <div className="col-12">
-            <h2 className="text-center">CODING</h2>
+            <h2 className="text-center">Benvenuto ...</h2>
             <div className="row baseStyle" style={{height:'100%'}}>
                 <div className="col-12 col-lg-4 home-div d-flex align-items-center justify-content-center text-center">
                     <div>
