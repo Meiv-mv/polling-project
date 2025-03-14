@@ -37,8 +37,8 @@ export default function Homepage() {
                 </div>
                 <div className="col-12 col-lg-4 home-div d-flex align-items-center justify-content-center text-center mt-5">
                     <div>
-                        <h3>CSS</h3>
-                        <h6>Serve a separare la struttura del contenuto (HTML) dalla presentazione visiva (come colori, dimensioni dei font, spaziatura, ecc.), permettendo un controllo completo sul design di una pagina web.</h6>
+                        <h3>ECHARTS</h3>
+                        <h6>Apache ECharts TM è una libreria di visualizzazione JavaScript open source, ottimizzata sia per PC che per dispositivi mobili. Compatibile con la maggior parte dei browser web moderni, tra cui IE9/10/11, Chrome, Firefox e Safari, ECharts utilizza ZRender , un motore di rendering grafico, per creare grafici intuitivi, interattivi e altamente personalizzabili.</h6>
                     </div>
                 </div>
             </div>
