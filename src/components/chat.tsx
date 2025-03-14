@@ -121,7 +121,7 @@ export default function Chat() {
                             <button className="btn send-btn" onClick={sendMessage}>SEND</button>
                         </div>
                         <div className="col-4 col-md-2 col-lg-1">
-                            <button className="btn send-btn" onClick={updateUsername}>NICKNAME</button>
+                            <button className="btn send-btn" onClick={updateUsername}>USERNAME</button>
                         </div>
                     </div>
                 </div>

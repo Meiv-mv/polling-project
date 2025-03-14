@@ -1,10 +1,27 @@
 import "../App.css"
+import { useSelector, useDispatch } from 'react-redux'
+import { changeUsername } from "../redux/reducer/userReducer";
 
 export default function Homepage() {
+    const username: string = useSelector((state: any) => state.user.value);
+    const dispatch = useDispatch()
+
+    // update username
+    function updateUsername() {
+        const newUsername: string | null = prompt("Enter username");
+        if (newUsername === "") {
+            return
+        }
+        dispatch(changeUsername(newUsername))
+    }
+
     return (
         <div className="col-12">
-            <h2 className="text-center">Benvenuto ...</h2>
             <div className="row baseStyle" style={{height:'100%'}}>
+                <div className="col-12 align-items-center">
+                    <h2 className="text-center">Benvenuto {username}</h2>
+                    <button className="btn send-btn" onClick={updateUsername}>CAMBIA USERNAME</button>
+                </div>
                 <div className="col-12 col-lg-4 home-div d-flex align-items-center justify-content-center text-center">
                     <div>
                         <h3>REACT</h3>
