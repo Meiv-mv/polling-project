@@ -20,8 +20,18 @@ body {
     margin: 0;
 }
 
+
+
 nav a:hover {
     cursor: pointer;
+}
+
+.lg6{
+    background: rgba(214, 241, 220, 0.37);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .echarts-for-react,
@@ -84,3 +94,17 @@ nav a:hover {
     text-align: start;
     overflow-wrap: break-word;
 }
+
+/*div homepage*/
+.home-div {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.home-div:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
